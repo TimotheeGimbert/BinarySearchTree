@@ -1,21 +1,17 @@
 class Tree {
   constructor(rootNode, dataArray) {
-    rootNode = this.rootNode;
-    dataArray = this.dataArray;
+    this.rootNode = rootNode;
+    this.dataArray = dataArray;
   }
-  
 }
 
 class Node {
   constructor(dataValue, leftChild, rightChild) {
-    dataValue = this.dataValue;
-    leftChild = this.leftChild;
-    rightChild = this.rightChild;
-  }
-  
+    this.dataValue = dataValue;
+    this.leftChild = leftChild;
+    this.rightChild = rightChild;
+  } 
 }
 
-var tree = new Tree();
-tree.rootNode = 0;
-tree.dataArray = [4,2,9,5,1,8,9];
+var tree = new Tree(0, [4,2,9,5,1,8,9]);
 console.log(tree);
