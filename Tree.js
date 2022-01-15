@@ -1,10 +1,9 @@
 class Tree {
 
   constructor(rootValue, datas) {
-    this.nodes = [];
     this.rootNode = new Node(rootValue, null, null);
-    this.nodes.push(this.rootNode);
     this.datas = datas;
+    this.nodes = [];
     datas.forEach(element => {
       this.insertNode(element, this.rootNode);
     });
@@ -13,11 +12,19 @@ class Tree {
   insertNode(value, parentNode) {
     if (value < parentNode.value) {
       if (parentNode.leftChild !== null) this.insertNode(value, parentNode.leftChild);
-      else parentNode.leftChild =  new Node(value, null, null);
+      else {
+        const newNode = new Node(value, null, null);
+        parentNode.leftChild =  newNode;
+        this.nodes.push(newNode);
+      }
     }
     else if (value > parentNode.value) {
       if (parentNode.rightChild !== null) this.insertNode(value, parentNode.rightChild);
-      else parentNode.rightChild =  new Node(value, null, null);
+      else {
+        const newNode = new Node(value, null, null);
+        parentNode.rightChild =  newNode;
+        this.nodes.push(newNode);
+      }
     }
     else console.log('error: node has a wrong value, probably already in the tree');
   }
@@ -35,8 +42,12 @@ class Tree {
       floorsRight++;
       node = node.rightChild;
     }
-    console.log(floorsLeft, 'floors left');
-    console.log(floorsRight, 'floors right');
+    return floorsLeft > floorsRight ? floorsLeft : floorsRight;
+  }
+
+  draw() {
+    let spacers = this.getNbFloors();
+
   }
 
 }
@@ -52,5 +63,4 @@ class Node {
 
 var tree = new Tree(6, [4,2,9,5,1,8,3]);
 console.log(tree);
-console.log(tree.nodes);
 console.log(tree.getNbFloors());
