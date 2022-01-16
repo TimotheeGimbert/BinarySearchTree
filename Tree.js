@@ -66,10 +66,12 @@ class Tree {
 }
 
 
-var datas = [6,4,2,9,5,1,8,3];
-var tree = new Tree();
+const datas = [6,4,2,9,5,1,8,3];
+const tree = new Tree();
 datas.forEach(element => {
   tree.add(element);
 });
 console.log(tree);
-console.log(tree.find(9));
+
+const dataToFind = 9;
+console.log(`\n \n Data of value ${dataToFind} has been found ! \n`, tree.find(dataToFind));
