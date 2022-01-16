@@ -38,12 +38,14 @@ class Tree {
   }
 
   find(data) {
+    let nodeFound = null;
     const search = (node) => {
       if (data < node.value) search(node.leftChild);
       else if (data > node.value) search(node.rightChild);
-      else return node;
+      else nodeFound = node;
     }
-    return search(this.rootNode);
+    search(this.rootNode);
+    return nodeFound;
   }
 
   getNbFloors() {
