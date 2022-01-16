@@ -1,32 +1,49 @@
-class Tree {
-
-  constructor(rootValue, datas) {
-    this.rootNode = new Node(rootValue, null, null);
-    this.datas = datas;
-    this.nodes = [];
-    datas.forEach(element => {
-      this.insertNode(element, this.rootNode);
-    });
+class Node {
+  constructor(value, leftChild, rightChild) {
+    this.value = value;
+    this.leftChild = leftChild;
+    this.rightChild = rightChild;
   } 
+}
 
-  insertNode(value, parentNode) {
-    if (value < parentNode.value) {
-      if (parentNode.leftChild !== null) this.insertNode(value, parentNode.leftChild);
+class Tree {
+    constructor() {
+      this.nodes = []; // containes all nodes for console printing purpose
+      this.rootNode = new Node(null, null, null); 
+    } 
+
+  add(data) {
+    const addData = (node) => {
+      if (node.value === null) node.value = data;
+      else if (data < node.value) { // left subtree
+        if (node.leftChild === null) {
+          node.leftChild = new Node(data, null, null);
+          this.nodes.push(node.leftChild);
+        }
+        else addData(node.leftChild); // recursively calls the function with the new child node
+      }
+      else if (data > node.value) { // right subtree
+        if (node.rightChild === null) {
+          node.rightChild = new Node(data, null, null);
+          this.nodes.push(node.rightChild);
+        }
+        else addData(node.rightChild); // recursively calls the function with the new child node
+      }
       else {
-        const newNode = new Node(value, null, null);
-        parentNode.leftChild =  newNode;
-        this.nodes.push(newNode);
+        console.log('The value already exist in the tree');
+        return;
       }
     }
-    else if (value > parentNode.value) {
-      if (parentNode.rightChild !== null) this.insertNode(value, parentNode.rightChild);
-      else {
-        const newNode = new Node(value, null, null);
-        parentNode.rightChild =  newNode;
-        this.nodes.push(newNode);
-      }
+    return addData(this.rootNode); // runs the function for the first time by calling addLeft with the root node
+  }
+
+  find(data) {
+    const search = (node) => {
+      if (data < node.value) search(node.leftChild);
+      else if (data > node.value) search(node.rightChild);
+      else return node;
     }
-    else console.log('error: node has a wrong value, probably already in the tree');
+    return search(this.rootNode);
   }
 
   getNbFloors() {
@@ -44,23 +61,13 @@ class Tree {
     }
     return floorsLeft > floorsRight ? floorsLeft : floorsRight;
   }
-
-  draw() {
-    let spacers = this.getNbFloors();
-
-  }
-
-}
-
-class Node {
-  constructor(value, leftChild, rightChild) {
-    this.value = value;
-    this.leftChild = leftChild;
-    this.rightChild = rightChild;
-  } 
 }
 
 
-var tree = new Tree(6, [4,2,9,5,1,8,3]);
+var datas = [6,4,2,9,5,1,8,3];
+var tree = new Tree();
+datas.forEach(element => {
+  tree.add(element);
+});
 console.log(tree);
-console.log(tree.getNbFloors());
+console.log(tree.find(9));
