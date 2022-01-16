@@ -73,5 +73,8 @@ datas.forEach(element => {
 });
 console.log(tree);
 
+const nbFloors = tree.getNbFloors();
+console.log(`\n \n The tree has ${nbFloors} floors, just so you know.`);
+
 const dataToFind = 9;
 console.log(`\n \n Data of value ${dataToFind} has been found ! \n`, tree.find(dataToFind));
